@@ -31,11 +31,11 @@ class AuthService {
         return authResult.user.uid;
       }
       else{
-        throw FirebaseAuthException(message: 'Something went wrong');
+        throw Exception('Something went wrong');
       }
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       print(e);
-      return Future.error(e);
+      return Future.error(e.message);
     }
   }
 
@@ -48,11 +48,10 @@ class AuthService {
         return authResult.user.uid;
       }
       else{
-        throw FirebaseAuthException(message: 'Something went wrong');
+        throw Exception('Something went wrong');
       }
-    } on FirebaseAuthException catch (e) {
-      print(e);
-      return Future.error(e);
+    } catch (e) {
+      return Future.error(e.message);
     }
   }
 
@@ -73,11 +72,10 @@ class AuthService {
         return authResult.user.uid;
       }
       else{
-        throw FirebaseAuthException(message: 'Something went wrong');
+        throw Exception('Something went wrong');
       }
-    } on FirebaseAuthException catch (e) {
-      print(e);
-      return Future.error(e);
+    } catch (e) {
+      return Future.error(e.message);
     }
   }
 
@@ -86,11 +84,10 @@ class AuthService {
       await _firebaseAuth.signOut();
       
       if (_firebaseAuth.currentUser != null){
-        throw FirebaseAuthException(message: 'Something went wrong');
+        throw Exception('Something went wrong');
       }
-    } on FirebaseAuthException catch (e) {
-      print(e);
-      return Future.error(e);
+    } catch (e) {
+      return Future.error(e.message);
     }    
   }
 
@@ -98,7 +95,7 @@ class AuthService {
     try{
       await _firebaseAuth.currentUser.updateProfile(displayName: name);
     } catch (e){
-      return Future.error(e);
+      return Future.error(e.message);
     }
   }
   
@@ -106,7 +103,7 @@ class AuthService {
     try{
       await _firebaseAuth.currentUser.updateProfile(photoURL: url);
     } catch (e){
-      return Future.error(e);
+      return Future.error(e.message);
     }
   }
 }

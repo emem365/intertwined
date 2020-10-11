@@ -6,6 +6,7 @@ import 'package:intertwined/src/view/pages/home_page.dart';
 import 'package:intertwined/src/view/widgets/tapable_circle_avatar.dart';
 import 'package:intertwined/src/view/widgets/text_divider.dart';
 import 'package:provider/provider.dart';
+import 'package:string_validator/string_validator.dart' as validators;
 
 class SignIn extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<FormState>();
   bool isLoading = false;
   String email;
   String password;
@@ -27,31 +29,34 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: MainColors.lavendarBlush,
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                buildTitle(context),
-                buildLoginProvidersRow(context, authService),
-                TextDivider(
-                  text: 'OR',
-                ),
-                Text('Sign In using your email and password!'),
-                buildForm(context, authService),
-                buildSignUpText(context, authService),
-                SizedBox(
-                  height: 24,
-                )
-              ],
+      body: Builder(builder: (context) {
+        return Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  buildTitle(context),
+                  buildLoginProvidersRow(context, authService),
+                  TextDivider(
+                    text: 'OR',
+                  ),
+                  Text('Sign In using your email and password!'),
+                  buildForm(context, authService),
+                  buildSignUpText(context, authService),
+                  SizedBox(
+                    height: 24,
+                  )
+                ],
+              ),
             ),
-          ),
-          if (isLoading) buildLoadingBanner(context),
-        ],
-      ),
+            if (isLoading) buildLoadingBanner(context),
+          ],
+        );
+      }),
     );
   }
 
@@ -99,6 +104,12 @@ class _SignInState extends State<SignIn> {
             children: [
               TextFormField(
                 onSaved: (value) => email = value,
+                validator: (val) {
+                  if (!validators.isEmail(val)) {
+                    return 'Invalid email.';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                   filled: true,
@@ -112,6 +123,9 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 24),
               TextFormField(
+                validator: (val) {
+                  return null;
+                },
                 onSaved: (value) => password = value,
                 decoration: InputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -143,16 +157,19 @@ class _SignInState extends State<SignIn> {
                     minimumSize:
                         Size(MediaQuery.of(context).size.width / 2, 56)),
                 onPressed: () {
-                  //TODO: SET UP VALIDATORS
                   if (_formKey.currentState.validate()) {
                     setLoading(true);
+                    FocusScope.of(context).unfocus();
                     _formKey.currentState.save();
+
                     authService.signIn(email, password).then((_) {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (BuildContext context) => HomePage()));
-                    }, onError: (e){
+                    }, onError: (e) {
                       setLoading(false);
-                      //TODO: Show error
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text(e),
+                      ));
                     });
                   }
                 },
