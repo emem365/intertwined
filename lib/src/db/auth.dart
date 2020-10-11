@@ -9,7 +9,18 @@ class AuthService {
     this.googleSignIn = GoogleSignIn();
   }
   
-  Stream<User> get authState => _firebaseAuth.authStateChanges();
+  Stream<User> get authStateStream => _firebaseAuth.authStateChanges();
+
+  AuthState get authState {
+    if(_firebaseAuth.currentUser == null) {
+      return AuthState.logged_out;
+    }
+    else{
+      return AuthState.logged_in;
+    }
+  }
+  
+  User get currentUser => _firebaseAuth.currentUser;
 
   Future<String> signUp(String email, String password) async{
     try {
@@ -98,4 +109,9 @@ class AuthService {
       return Future.error(e);
     }
   }
+}
+
+enum AuthState{
+  logged_in,
+  logged_out,
 }

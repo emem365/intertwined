@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
+import 'package:intertwined/src/controller/login_controller.dart';
+import 'package:intertwined/src/view/pages/sign_in.dart';
 import 'package:intertwined/src/view/widgets/custom_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,6 +23,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Scaffold(
       drawer: Drawer(),
       body: Center(
@@ -32,6 +36,15 @@ class _HomePageState extends State<HomePage> {
                 title: Text('ABC'),
                 subtitle: Text('abc'),
               ),
+            ),
+            FlatButton(
+              child:Text('Sign out'),
+              onPressed:() {
+                      authService.signOut().then((value) =>
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) => SignIn()),
+                              (Route<dynamic> route) => false));
+                    },
             ),
             Text(
               '$_counter',
@@ -90,7 +103,6 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 }
-
 
 // MainColors.fieryRoseMaterialColor[300]
 // MainColors.lavendarBlush
