@@ -33,12 +33,14 @@ class MainColors{
 }
 
 class AppThemes {
-  static ThemeData lightTheme = ThemeData(
+  static ThemeData lightTheme(BuildContext context) => ThemeData(
     primarySwatch: MainColors.fieryRoseMaterialColor,
     // backgroundColor: MainColors.lavendarBlush,
     // scaffoldBackgroundColor: MainColors.lavendarBlush,
     // dialogBackgroundColor: MainColors.lavendarBlush,
-    textTheme: GoogleFonts.ptSansTextTheme(),
+    textTheme: GoogleFonts.ptSansTextTheme(Theme.of(context).textTheme).copyWith(
+      
+    ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 }

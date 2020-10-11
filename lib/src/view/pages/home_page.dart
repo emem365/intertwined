@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
-import 'package:intertwined/src/controller/login_controller.dart';
+import 'package:intertwined/src/db/auth.dart';
 import 'package:intertwined/src/view/pages/sign_in.dart';
 import 'package:intertwined/src/view/widgets/custom_nav_bar.dart';
 import 'package:provider/provider.dart';

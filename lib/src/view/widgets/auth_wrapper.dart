@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intertwined/src/controller/login_controller.dart';
+import 'package:intertwined/src/db/auth.dart';
 import 'package:provider/provider.dart';
 
 class AuthWrapper extends StatelessWidget {

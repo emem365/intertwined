@@ -2,12 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
-import 'package:intertwined/src/controller/login_controller.dart';
-
+import 'package:intertwined/src/db/auth.dart';
 import 'package:intertwined/src/view/pages/sign_in.dart';
 import 'package:intertwined/src/view/widgets/auth_wrapper.dart';
 import 'package:provider/provider.dart';
-
 import 'src/view/pages/home_page.dart';
 
 Future<void> main() async {
@@ -30,7 +28,7 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, _) {
         return MaterialApp(
           title: 'Intertwined',
-          theme: AppThemes.lightTheme,
+          theme: AppThemes.lightTheme(context),
           home: AuthWrapper(HomePage(), SignIn()),
         );
       },
