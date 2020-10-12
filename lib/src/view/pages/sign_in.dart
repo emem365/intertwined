@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
+import 'package:intertwined/src/constants/assets.dart';
 import 'package:intertwined/src/db/auth.dart';
 import 'package:intertwined/src/view/pages/home_page.dart';
 import 'package:intertwined/src/view/widgets/tapable_circle_avatar.dart';
@@ -78,18 +79,45 @@ class _SignInState extends State<SignIn> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TapableCircleAvatar(
+            child: Image.asset(
+              Assets.googleLogo,
+              height: 40,
+              width: 40,
+            ),
             onTap: () {
-              print('hahha');
+              setLoading(true);
+              FocusScope.of(context).unfocus();
+
+              authService.signInWithGoogle().then((_) {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => HomePage()));
+              }, onError: (e) {
+                setLoading(false);
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text(e),
+                ));
+              });
             },
           ),
           TapableCircleAvatar(
+            child: Image.asset(
+              Assets.githubLogo,
+              height: 40,
+              width: 40,
+            ),
             onTap: () {
-              print('hahha');
-            },
-          ),
-          TapableCircleAvatar(
-            onTap: () {
-              print('hahha');
+              setLoading(true);
+              FocusScope.of(context).unfocus();
+
+              authService.signInWithGitHub(context).then((_) {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => HomePage()));
+              }, onError: (e) {
+                setLoading(false);
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text(e),
+                ));
+              });
             },
           ),
         ],
