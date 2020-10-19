@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/db/auth.dart';
 import 'package:intertwined/src/view/pages/sign_in.dart';
+import 'package:intertwined/src/view/pages/sign_up.dart';
 import 'package:intertwined/src/view/widgets/auth_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'src/view/pages/home_page.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'Intertwined',
           theme: AppThemes.lightTheme(context),
-          home: AuthWrapper(HomePage(), SignIn()),
+          home: SignUp()//AuthWrapper(HomePage(), SignIn()),
         );
       },
     );

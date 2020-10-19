@@ -12,18 +12,18 @@ import 'package:string_validator/string_validator.dart' as validators;
 class ForgotPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MainColors.lavendarBlush,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: BackButton(
-          color: MainColors.richBlackFogra,
+    return ChangeNotifierProvider(
+      create: (_) => ForgotPasswordController(),
+      child: Scaffold(
+        backgroundColor: MainColors.lavendarBlush,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          leading: BackButton(
+            color: MainColors.richBlackFogra,
+          ),
         ),
-      ),
-      body: ChangeNotifierProvider(
-        create: (_) => ForgotPasswordController(),
-        child: SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -33,19 +33,19 @@ class ForgotPassword extends StatelessWidget {
             ],
           ),
         ),
-        builder: (BuildContext context, Widget child) {
-          return Consumer<ForgotPasswordController>(builder:
-              (BuildContext context,
-                  ForgotPasswordController forgotPasswordController, _) {
-            return Stack(
-              children: [
-                child,
-                if (forgotPasswordController.isLoading) LoadingBanner(),
-              ],
-            );
-          });
-        },
       ),
+      builder: (BuildContext context, Widget child) {
+        return Consumer<ForgotPasswordController>(builder:
+            (BuildContext context,
+                ForgotPasswordController forgotPasswordController, _) {
+          return Stack(
+            children: [
+              child,
+              if (forgotPasswordController.isLoading) LoadingBanner(),
+            ],
+          );
+        });
+      },
     );
   }
 }
