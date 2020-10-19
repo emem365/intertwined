@@ -4,6 +4,7 @@ import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/constants/assets.dart';
 import 'package:intertwined/src/controller/sign_in_controller.dart';
 import 'package:intertwined/src/db/auth.dart';
+import 'package:intertwined/src/view/pages/forgot_password.dart';
 import 'package:intertwined/src/view/pages/home_page.dart';
 import 'package:intertwined/src/view/widgets/loading_banner.dart';
 import 'package:intertwined/src/view/widgets/tapable_circle_avatar.dart';
@@ -12,7 +13,6 @@ import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart' as validators;
 
 class SignIn extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,7 +176,8 @@ class _SignInForm extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
                 onPressed: () {
-                  print('forgot password');
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ForgotPassword()));
                 },
                 child: Text(
                   'Forgot your password?',
@@ -248,5 +249,3 @@ class _SignUpMessage extends StatelessWidget {
     );
   }
 }
-
-

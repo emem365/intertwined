@@ -18,5 +18,5 @@ class Illustrations{
   final String path;
   Illustrations(String path) : this.path = '$path/illustrations';
 
-  String get forgotPassword => '$path/drawkit-grape-pack-illustration-7.svg';
+  String get forgotPassword => '$path/illustration7.svg';
 }
