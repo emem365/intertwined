@@ -103,6 +103,3 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 }
-
-// MainColors.fieryRoseMaterialColor[300]
-// MainColors.lavendarBlush
