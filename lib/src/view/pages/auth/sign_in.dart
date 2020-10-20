@@ -3,109 +3,128 @@ import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/constants/assets.dart';
 import 'package:intertwined/src/controller/sign_in_controller.dart';
-import 'package:intertwined/src/controller/sign_up_controller.dart';
 import 'package:intertwined/src/db/auth.dart';
-import 'package:intertwined/src/view/pages/forgot_password.dart';
+import 'package:intertwined/src/view/pages/auth/forgot_password.dart';
+import 'package:intertwined/src/view/pages/auth/sign_up/sign_up.dart';
 import 'package:intertwined/src/view/pages/home_page.dart';
 import 'package:intertwined/src/view/widgets/loading_banner.dart';
+import 'package:intertwined/src/view/widgets/tapable_circle_avatar.dart';
+import 'package:intertwined/src/view/widgets/text_divider.dart';
 import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart' as validators;
 
-class SignUp extends StatelessWidget {
+class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => SignUpController(PageController(initialPage: 0)),
-      builder: (BuildContext context, _) {
-        return Consumer<SignUpController>(
-          builder: (BuildContext context, signUpController, _) {
+      create: (_) => SignInController(),
+      builder: (BuildContext context, Widget signInScreen) {
+        return Consumer<SignInController>(
+          builder: (BuildContext context, signInController, _) {
             return Stack(
               children: [
-                Scaffold(
-                  appBar: AppBar(
-                    elevation: 0,
-                    backgroundColor: Colors.transparent,
-                    leading: BackButton(
-                      color: MainColors.richBlackFogra,
-                    ),
-                    flexibleSpace: SafeArea(
-                      child: LinearProgressIndicator(
-                        minHeight: 8,
-                        value: signUpController.progressPercentage,
-                      ),
-                    ),
-                  ),
-                  backgroundColor: MainColors.lavendarBlush,
-                  body: PageView(
-                    onPageChanged: (ind) =>
-                        signUpController.setProgressPercentage((ind+1) / 4),
-                    controller: signUpController.pageController,
-                    children: [
-                      Material(
-                        child: Center(
-                            child: TextButton(
-                          child: Text('Page1'),
-                          onPressed: () {signUpController.pageController.nextPage(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeIn);},
-                        )),
-                      ),
-                      Material(
-                        child: Center(
-                            child: TextButton(
-                          child: Text('Page2'),
-                          onPressed: () {
-                            signUpController.pageController.nextPage(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeIn);
-                          },
-                        )),
-                      ),
-                      Material(
-                        child: Center(
-                            child: TextButton(
-                          child: Text('Page3'),
-                          onPressed: () {
-                            signUpController.pageController.nextPage(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeIn);
-                          },
-                        )),
-                      ),
-                      Material(
-                        child: Center(
-                            child: TextButton(
-                          child: Text('Page4'),
-                          onPressed: () {
-                            signUpController.pageController.nextPage(
-                                duration: Duration(milliseconds: 400),
-                                curve: Curves.easeIn);
-                          },
-                        )),
-                      ),
-                    ],
-                  ),
-                  //  SingleChildScrollView(
-                  //   child: Column(
-                  //     mainAxisSize: MainAxisSize.min,
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: [
-                  //       // _SignUpForm(),
-                  //     ],
-                  //   ),
-                  // ),
-                ),
-                if (signUpController.isLoading) LoadingBanner(),
+                signInScreen,
+                if (signInController.isLoading) LoadingBanner(),
               ],
             );
           },
         );
       },
+      child: Scaffold(
+        backgroundColor: MainColors.lavendarBlush,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _SignInPageTitle(),
+              _SignInAuthProviders(),
+              TextDivider(text: 'OR'),
+              Text('Sign In using your email and password!'),
+              _SignInForm(),
+              _SignUpMessage(),
+              const SizedBox(height: 24)
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
 
-class _SignUpForm extends StatelessWidget {
+class _SignInPageTitle extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height / 6, bottom: 24),
+      child: Text(
+        'Sign In',
+        style: Theme.of(context).textTheme.headline5.copyWith(
+              fontWeight: FontWeight.w900,
+              color: MainColors.richBlackFogra,
+            ),
+      ),
+    );
+  }
+}
+
+class _SignInAuthProviders extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+    final signInController = Provider.of<SignInController>(context);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TapableCircleAvatar(
+          child: Image.asset(
+            Assets.logos.google,
+            height: 40,
+            width: 40,
+          ),
+          onTap: () {
+            signInController.setLoading(true);
+            FocusScope.of(context).unfocus();
+
+            authService.signInWithGoogle().then((_) {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => HomePage()));
+            }, onError: (e) {
+              signInController.setLoading(false);
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text(e),
+              ));
+            });
+          },
+        ),
+        TapableCircleAvatar(
+          child: Image.asset(
+            Assets.logos.github,
+            height: 40,
+            width: 40,
+          ),
+          onTap: () {
+            signInController.setLoading(true);
+            FocusScope.of(context).unfocus();
+
+            authService.signInWithGitHub(context).then((_) {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => HomePage()));
+            }, onError: (e) {
+              signInController.setLoading(false);
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text(e),
+              ));
+            });
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class _SignInForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -220,7 +239,10 @@ class _SignUpMessage extends StatelessWidget {
               text: 'Sign up here!',
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  print('SignUp');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUp()),
+                  );
                 },
               style: TextStyle(
                 decoration: TextDecoration.underline,

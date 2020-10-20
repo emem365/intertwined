@@ -19,4 +19,10 @@ class Illustrations{
   Illustrations(String path) : this.path = '$path/illustrations';
 
   String get forgotPassword => '$path/illustration7.svg';
+
+  String get newUser => '$path/illustration20.svg';
+
+  String get settingUp => '$path/illustration12.svg';
+
+  String get somethingWrong => '$path/illustration13.svg';
 }

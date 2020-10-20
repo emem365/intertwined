@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/constants/assets.dart';
 import 'package:intertwined/src/controller/forgot_password_controller.dart';
 import 'package:intertwined/src/db/auth.dart';
+import 'package:intertwined/src/view/widgets/illustration_with_title.dart';
 import 'package:intertwined/src/view/widgets/loading_banner.dart';
 import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart' as validators;
@@ -28,7 +28,10 @@ class ForgotPassword extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _ForgotPasswordImage(),
+              IllustrationWithTitle(
+                Assets.illustrations.forgotPassword,
+                'Forgot Password?',
+              ),
               _ForgotPasswordForm(),
             ],
           ),
@@ -46,40 +49,6 @@ class ForgotPassword extends StatelessWidget {
           );
         });
       },
-    );
-  }
-}
-
-class _ForgotPasswordImage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height / 2,
-      // margin: EdgeInsets.only(top: 36),
-      child: Stack(
-        children: [
-          Center(
-            child: SvgPicture.asset(
-              Assets.illustrations.forgotPassword,
-              semanticsLabel: 'Forgot Password',
-              fit: BoxFit.cover,
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: Text(
-                'Forgot Password?',
-                style: Theme.of(context).textTheme.headline5.copyWith(
-                      fontWeight: FontWeight.w900,
-                      color: MainColors.richBlackFogra,
-                    ),
-              ),
-            ),
-          )
-        ],
-      ),
     );
   }
 }

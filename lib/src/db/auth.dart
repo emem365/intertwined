@@ -25,27 +25,31 @@ class AuthService {
   User get currentUser => _firebaseAuth.currentUser;
 
   Future<void> resetPassword(String email) async {
-    try{
+    try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
-    } catch (e){
-      if (e.message==null || e.message == '')
+    } catch (e) {
+      if (e.message == null || e.message == '')
         return Future.error('Something went wrong. Please try again');
       return Future.error(e.message);
     }
   }
 
-  Future<String> signUp(String email, String password) async {
+  Future<String> signUp(
+      String email, String password, String displayName) async {
     try {
       UserCredential authResult = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       if (authResult?.user != null) {
         assert(!authResult.user.isAnonymous);
+        setDisplayName(displayName).catchError((e) {
+          throw Exception(e.toString());
+        });
         return authResult.user.uid;
       } else {
         throw Exception('Something went wrong');
       }
     } catch (e) {
-      if (e.message==null || e.message == '')
+      if (e.message == null || e.message == '')
         return Future.error('Something went wrong. Please try again');
       return Future.error(e.message);
     }
@@ -62,7 +66,7 @@ class AuthService {
         throw Exception('Something went wrong');
       }
     } catch (e) {
-      if (e.message==null || e.message == '')
+      if (e.message == null || e.message == '')
         return Future.error('Something went wrong. Please try again');
       return Future.error(e.message);
     }
@@ -78,7 +82,8 @@ class AuthService {
       );
 
       final result = await gitHubSignIn.signIn(context);
-      if (result.status == GitHubSignInResultStatus.ok && result?.token!=null) {
+      if (result.status == GitHubSignInResultStatus.ok &&
+          result?.token != null) {
         final AuthCredential gitHubAuthCredential =
             GithubAuthProvider.credential(result.token);
         print(gitHubAuthCredential);
@@ -95,7 +100,7 @@ class AuthService {
         return Future.error(result.errorMessage);
       }
     } catch (e) {
-      if (e.message==null || e.message == '')
+      if (e.message == null || e.message == '')
         return Future.error('Something went wrong. Please try again');
       return Future.error(e.message);
     }
@@ -122,7 +127,7 @@ class AuthService {
         throw Exception('Something went wrong');
       }
     } catch (e) {
-      if (e.message==null || e.message == '')
+      if (e.message == null || e.message == '')
         return Future.error('Something went wrong. Please try again');
       return Future.error(e.message);
     }
@@ -136,7 +141,7 @@ class AuthService {
         throw Exception('Something went wrong');
       }
     } catch (e) {
-      if (e.message==null || e.message == '')
+      if (e.message == null || e.message == '')
         return Future.error('Something went wrong. Please try again');
       return Future.error(e.message);
     }
@@ -146,7 +151,7 @@ class AuthService {
     try {
       await _firebaseAuth.currentUser.updateProfile(displayName: name);
     } catch (e) {
-      if (e.message==null || e.message == '')
+      if (e.message == null || e.message == '')
         return Future.error('Something went wrong. Please try again');
       return Future.error(e.message);
     }
@@ -156,7 +161,7 @@ class AuthService {
     try {
       await _firebaseAuth.currentUser.updateProfile(photoURL: url);
     } catch (e) {
-      if (e.message==null || e.message == '')
+      if (e.message == null || e.message == '')
         return Future.error('Something went wrong. Please try again');
       return Future.error(e.message);
     }

@@ -5,10 +5,12 @@ class SignUpController with ChangeNotifier {
   SignUpController(this.pageController);
 
   bool isLoading = false;
+  bool signUpSuccessful;
   String displayName;
   String email;
   String password;
-  double progressPercentage = 0;
+  String rePassword;
+  double progressPercentage = 0.33;
 
   void setLoading(bool val) {
     isLoading = val;
@@ -30,5 +32,13 @@ class SignUpController with ChangeNotifier {
 
   void setPassword(String str) {
     password = str;
+  }
+
+  void setRePassword(String str) {
+    rePassword = str;
+  }
+
+  void setSignUpSuccessful(bool val) {
+    signUpSuccessful = val;
   }
 }
