@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/db/auth.dart';
-import 'package:intertwined/src/view/pages/auth/sign_in.dart';
+import 'package:intertwined/src/view/widgets/app_drawer.dart';
 import 'package:intertwined/src/view/widgets/custom_nav_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
     return Scaffold(
-      drawer: Drawer(),
+      drawer: AppDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -37,15 +37,10 @@ class _HomePageState extends State<HomePage> {
                 subtitle: Text('abc'),
               ),
             ),
-            FlatButton(
-              child:Text('Sign out'),
-              onPressed:() {
-                      authService.signOut().then((value) =>
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (context) => SignIn()),
-                              (Route<dynamic> route) => false));
-                    },
-            ),
+            TextButton(
+                child: Text('Flutter'),
+                onPressed: () {},
+                style: TextButton.styleFrom(side: BorderSide())),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
@@ -63,9 +58,15 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Scaffold.of(context).openDrawer();
               },
-              child: CircleAvatar(
-                backgroundColor: MainColors.zomp,
-                child: Icon(Icons.person, color: Colors.white70),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Hero(
+                  tag: 'drawer-profile-pic',
+                  child: CircleAvatar(
+                    backgroundColor: MainColors.zomp,
+                    child: Icon(Icons.person, color: Colors.white70),
+                  ),
+                ),
               ),
             ),
           ),
