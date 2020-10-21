@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
-import 'package:intertwined/src/db/auth.dart';
 import 'package:intertwined/src/view/widgets/app_drawer.dart';
 import 'package:intertwined/src/view/widgets/custom_nav_bar.dart';
-import 'package:provider/provider.dart';
+import 'package:intertwined/src/view/widgets/transparent_app_bar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -23,9 +22,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
     return Scaffold(
       drawer: AppDrawer(),
+      appBar: TransparentAppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -48,30 +47,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Builder(
-          builder: (BuildContext context) => Padding(
-            padding: EdgeInsets.only(left: 8),
-            child: InkWell(
-              onTap: () {
-                Scaffold.of(context).openDrawer();
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Hero(
-                  tag: 'drawer-profile-pic',
-                  child: CircleAvatar(
-                    backgroundColor: MainColors.zomp,
-                    child: Icon(Icons.person, color: Colors.white70),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
+
       bottomNavigationBar: buildNavBar(context),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
@@ -104,3 +80,4 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 }
+

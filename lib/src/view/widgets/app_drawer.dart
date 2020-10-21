@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/db/auth.dart';
 import 'package:intertwined/src/view/pages/auth/sign_in.dart';
+import 'package:intertwined/src/view/widgets/user_avatar.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -35,7 +36,8 @@ class AppDrawer extends StatelessWidget {
               'Logout',
             ),
             onTap: () {
-              final authService = Provider.of<AuthService>(context);
+              final authService =
+                  Provider.of<AuthService>(context, listen: false);
               authService.signOut().then((value) {
                 Navigator.pushAndRemoveUntil(
                     context,
@@ -53,27 +55,19 @@ class AppDrawer extends StatelessWidget {
 class _AppDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+    var currentUser = authService.currentUser;
+    assert(currentUser != null);
     return DrawerHeader(
       decoration: BoxDecoration(color: MainColors.lavendarBlush),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Hero(
-            tag: 'drawer-profile-pic',
-            child: CircleAvatar(
-              radius: 36,
-              backgroundColor: MainColors.zomp,
-              child: Icon(
-                Icons.person,
-                color: Colors.white70,
-                size: 36,
-              ),
-            ),
-          ),
+          UserAvatar(radius: 36),
           SizedBox(height: 24),
           Text(
-            'Username',
+            currentUser.displayName ?? 'User',
             style: Theme.of(context).textTheme.headline5,
             textAlign: TextAlign.center,
           ),
@@ -82,3 +76,4 @@ class _AppDrawerHeader extends StatelessWidget {
     );
   }
 }
+
