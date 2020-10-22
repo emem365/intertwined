@@ -32,7 +32,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: AppDrawer(),
-      appBar: TransparentAppBar(),
+      appBar: TransparentAppBar(
+        title: getTitle()
+      ),
       body: PageView(
         controller: pageController,
         onPageChanged: (int newIndex) =>
@@ -51,6 +53,12 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  String getTitle(){
+    if (_currentIndex == 0) return 'Text Snippets';
+    else if (_currentIndex == 1) return 'Images';
+    else return 'Files';
   }
 
   Widget buildNavBar(BuildContext context) => CustomNavBarWrapper(
