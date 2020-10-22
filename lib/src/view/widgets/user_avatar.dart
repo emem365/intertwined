@@ -13,7 +13,7 @@ class UserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+    final authService = Provider.of<AuthService>(context, listen: false);
     var currentUser = authService.currentUser;
     assert(currentUser != null);
 

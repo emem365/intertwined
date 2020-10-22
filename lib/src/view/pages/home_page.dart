@@ -1,17 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
-import 'package:intertwined/src/db/auth.dart';
-import 'package:intertwined/src/db/database.dart';
-import 'package:intertwined/src/model/text_snippets.dart';
 import 'package:intertwined/src/view/pages/files_page.dart';
 import 'package:intertwined/src/view/pages/images_page.dart';
 import 'package:intertwined/src/view/pages/snippets_page.dart';
 import 'package:intertwined/src/view/widgets/app_drawer.dart';
 import 'package:intertwined/src/view/widgets/custom_nav_bar.dart';
-import 'package:intertwined/src/view/widgets/snippet_card.dart';
 import 'package:intertwined/src/view/widgets/transparent_app_bar.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override

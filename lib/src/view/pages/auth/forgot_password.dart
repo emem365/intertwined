@@ -57,7 +57,7 @@ class _ForgotPasswordForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+    final authService = Provider.of<AuthService>(context, listen: false);
     final forgotPasswordController =
         Provider.of<ForgotPasswordController>(context);
     return Padding(

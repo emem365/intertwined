@@ -55,7 +55,7 @@ class AppDrawer extends StatelessWidget {
 class _AppDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+    final authService = Provider.of<AuthService>(context, listen: false);
     var currentUser = authService.currentUser;
     assert(currentUser != null);
     return DrawerHeader(

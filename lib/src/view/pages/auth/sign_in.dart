@@ -72,7 +72,7 @@ class _SignInPageTitle extends StatelessWidget {
 class _SignInAuthProviders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+    final authService = Provider.of<AuthService>(context, listen: false);
     final signInController = Provider.of<SignInController>(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +128,7 @@ class _SignInForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+    final authService = Provider.of<AuthService>(context, listen: false);
     final signInController = Provider.of<SignInController>(context);
     return Padding(
       padding: const EdgeInsets.all(32.0),

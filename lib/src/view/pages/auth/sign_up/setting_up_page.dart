@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/constants/assets.dart';

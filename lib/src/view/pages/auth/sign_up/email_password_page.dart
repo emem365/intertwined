@@ -35,7 +35,7 @@ class _EmailPasswordForm extends StatelessWidget {
   final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+    final authService = Provider.of<AuthService>(context, listen: false);
     final signUpController = Provider.of<SignUpController>(context);
     return Padding(
       padding: const EdgeInsets.all(32.0),

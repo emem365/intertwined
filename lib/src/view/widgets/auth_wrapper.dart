@@ -8,7 +8,7 @@ class AuthWrapper extends StatelessWidget {
   AuthWrapper(this.loggedInScreen, this.loggedOutScreen);
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AuthService>(context).authState;
+    final user = Provider.of<AuthService>(context, listen: false).authState;
     if (user == AuthState.logged_in)
       return loggedInScreen;
     else
