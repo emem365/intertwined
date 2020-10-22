@@ -5,13 +5,10 @@ class TextSnippet {
   DateTime lastUpdated;
   String title;
   String content;
+  String colorCode;
 
-  TextSnippet({
-    this.id,
-    this.lastUpdated,
-    this.title,
-    this.content,
-  });
+  TextSnippet(
+      {this.id, this.lastUpdated, this.title, this.content, this.colorCode});
 
   factory TextSnippet.fromDocumentSnapshot(DocumentSnapshot doc) {
     final map = doc.data();
@@ -22,14 +19,16 @@ class TextSnippet {
       lastUpdated: DateTime.parse(map['last-updated'].toDate().toString()),
       title: map['title'],
       content: map['content'],
+      colorCode: map['color-code'],
     );
   }
 
   Map toMap() {
     return {
-      'title': title,
+      'title': title ?? '',
       'content': content,
       'last-updated': Timestamp.fromDate(lastUpdated),
+      'color-code': colorCode,
     };
   }
 }

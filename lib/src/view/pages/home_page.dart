@@ -1,8 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
+import 'package:intertwined/src/db/auth.dart';
+import 'package:intertwined/src/db/database.dart';
+import 'package:intertwined/src/model/text_snippets.dart';
+import 'package:intertwined/src/view/pages/files_page.dart';
+import 'package:intertwined/src/view/pages/images_page.dart';
+import 'package:intertwined/src/view/pages/snippets_page.dart';
 import 'package:intertwined/src/view/widgets/app_drawer.dart';
 import 'package:intertwined/src/view/widgets/custom_nav_bar.dart';
+import 'package:intertwined/src/view/widgets/snippet_card.dart';
 import 'package:intertwined/src/view/widgets/transparent_app_bar.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,47 +19,40 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  int _currentIndex = 0;
+  PageController pageController;
+  @override
+  void initState() {
+    pageController = new PageController(
+      initialPage: _currentIndex,
+    );
+    super.initState();
   }
 
-  int _currentIndex = 0;
+  void onPageChanged(int newIndex) {
+    pageController.animateToPage(newIndex,
+        duration: Duration(milliseconds: 400), curve: Curves.easeInOut);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: AppDrawer(),
       appBar: TransparentAppBar(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Card(
-              color: TileColors.celeste,
-              child: ListTile(
-                title: Text('ABC'),
-                subtitle: Text('abc'),
-              ),
-            ),
-            TextButton(
-                child: Text('Flutter'),
-                onPressed: () {},
-                style: TextButton.styleFrom(side: BorderSide())),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+      body: PageView(
+        controller: pageController,
+        onPageChanged: (int newIndex) =>
+            setState(() => _currentIndex = newIndex),
+        physics: BouncingScrollPhysics(),
+        children: [
+          SnippetsPage(),
+          ImagesPage(),
+          FilesPage(),
+        ],
       ),
-
       bottomNavigationBar: buildNavBar(context),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {},
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
@@ -64,20 +66,23 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           currentIndex: _currentIndex,
-          onTap: (value) => setState(() => _currentIndex = value),
+          onTap: onPageChanged,
           unselectedItemColor: MainColors.fieryRoseMaterialColor.shade300,
           selectedItemColor: MainColors.lavendarBlush,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.cached),
-              title: Text('Text'),
+              icon: Icon(Icons.text_snippet,),
+              title: Text('Text Snippets'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.cached),
-              title: Text('Text'),
+              icon: Icon(Icons.image),
+              title: Text('Images'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.upload_file),
+              title: Text('Files'),
             ),
           ],
         ),
       );
 }
-

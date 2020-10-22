@@ -7,6 +7,29 @@ class TileColors{
   static Color maximumBluePurple = Color(0xff99abfb);
   static Color celeste = Color(0xffb6f6fc);
   static Color maximumYellowRed = Color(0xfff6bd60); 
+
+  static Color fromCode(String code){
+    switch(code){
+      case 'lp':
+        return lightPink;
+      case 'mm':
+        return magicMint;
+      case 'mbp':
+        return maximumBluePurple;
+      case 'ce':
+        return celeste;
+      case 'myr':
+        return maximumYellowRed;
+      default:
+        throw UnimplementedError();
+    }
+  }
+
+  static String get codeLightPink => 'lp';
+  static String get codeMagicMint => 'mm';
+  static String get codeMaximumBluePurple => 'mbp';
+  static String get codeCeleste => 'ce';
+  static String get codeMaximumYellowRed => 'myr';
 }
 
 class MainColors{

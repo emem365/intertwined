@@ -1,12 +1,10 @@
-
-
-class Assets{
+class Assets {
   static const path = 'assets';
   static Logos logos = Logos(path);
   static Illustrations illustrations = Illustrations(path);
 }
 
-class Logos{
+class Logos {
   final String path;
   Logos(String path) : this.path = '$path/icons';
 
@@ -14,7 +12,7 @@ class Logos{
   String get google => '$path/google.png';
 }
 
-class Illustrations{
+class Illustrations {
   final String path;
   Illustrations(String path) : this.path = '$path/illustrations';
 
@@ -25,4 +23,8 @@ class Illustrations{
   String get settingUp => '$path/illustration12.svg';
 
   String get somethingWrong => '$path/illustration13.svg';
+
+  String get comingSoon1 => '$path/illustration2.svg';
+  
+  String get comingSoon2 => '$path/illustration6.svg';
 }

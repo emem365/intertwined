@@ -41,7 +41,10 @@ class DatabaseService {
     String collectionPath = 'users/${user.uid}/textSnippets';
     CollectionReference snippetsCollection =
         _firestore.collection(collectionPath);
-    return snippetsCollection.snapshots().map(
+    return snippetsCollection
+        .orderBy('last-updated', descending: true)
+        .snapshots()
+        .map(
           (snapshot) => snapshot.docs
               .map<TextSnippet>((doc) => TextSnippet.fromDocumentSnapshot(doc))
               .toList(),
