@@ -78,13 +78,8 @@ class _ForgotPasswordForm extends StatelessWidget {
               },
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                filled: true,
                 fillColor: Colors.white,
                 labelText: 'Email address',
-                alignLabelWithHint: true,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24),
-                    borderSide: BorderSide.none),
               ),
             ),
             SizedBox(

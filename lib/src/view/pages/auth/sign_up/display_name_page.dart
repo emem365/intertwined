@@ -49,13 +49,8 @@ class _DisplayNameForm extends StatelessWidget {
               },
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                filled: true,
                 fillColor: Colors.white,
                 labelText: 'Display Name',
-                alignLabelWithHint: true,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24),
-                    borderSide: BorderSide.none),
               ),
             ),
             SizedBox(

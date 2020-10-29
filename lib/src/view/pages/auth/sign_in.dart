@@ -147,13 +147,8 @@ class _SignInForm extends StatelessWidget {
               },
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                filled: true,
                 fillColor: Colors.white,
                 labelText: 'Email address',
-                alignLabelWithHint: true,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24),
-                    borderSide: BorderSide.none),
               ),
             ),
             SizedBox(height: 24),
@@ -162,15 +157,11 @@ class _SignInForm extends StatelessWidget {
                 return null;
               },
               onSaved: signInController.setPassword,
+              obscureText: true,
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                filled: true,
                 fillColor: Colors.white,
                 labelText: 'Password',
-                alignLabelWithHint: true,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24),
-                    borderSide: BorderSide.none),
               ),
             ),
             Padding(
