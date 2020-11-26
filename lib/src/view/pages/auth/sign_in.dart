@@ -92,7 +92,7 @@ class _SignInAuthProviders extends StatelessWidget {
                   builder: (BuildContext context) => HomePage()));
             }, onError: (e) {
               signInController.setLoading(false);
-              Scaffold.of(context).showSnackBar(SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(e),
               ));
             });
@@ -113,7 +113,7 @@ class _SignInAuthProviders extends StatelessWidget {
                   builder: (BuildContext context) => HomePage()));
             }, onError: (e) {
               signInController.setLoading(false);
-              Scaffold.of(context).showSnackBar(SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(e),
               ));
             });
@@ -195,7 +195,7 @@ class _SignInForm extends StatelessWidget {
                         builder: (BuildContext context) => HomePage()));
                   }, onError: (e) {
                     signInController.setLoading(false);
-                    Scaffold.of(context).showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(e),
                     ));
                   });

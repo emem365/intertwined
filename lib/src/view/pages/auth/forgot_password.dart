@@ -103,7 +103,7 @@ class _ForgotPasswordForm extends StatelessWidget {
                     Navigator.of(context).pop();
                   }, onError: (e) {
                     forgotPasswordController.setLoading(false);
-                    Scaffold.of(context).showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(e),
                     ));
                   });

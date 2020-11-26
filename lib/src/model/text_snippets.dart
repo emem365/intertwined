@@ -12,7 +12,7 @@ class TextSnippet {
 
   factory TextSnippet.fromDocumentSnapshot(DocumentSnapshot doc) {
     final map = doc.data();
-    return TextSnippet.fromMap(map)..id = doc.id;
+    return TextSnippet.fromMap(map).setId(doc.id);
   }
   factory TextSnippet.fromMap(Map<String, dynamic> map) {
     return TextSnippet(
@@ -23,12 +23,27 @@ class TextSnippet {
     );
   }
 
+  TextSnippet setId(String documentId) {
+    id = documentId;
+    return this;
+  }
+
   Map toMap() {
-    return {
+    Map<String, dynamic> map = {
       'title': title ?? '',
       'content': content,
       'last-updated': Timestamp.fromDate(lastUpdated),
       'color-code': colorCode,
     };
+    return map;
+  }
+
+  TextSnippet updateSnippet(String newTitle, String newContent) {
+    if (!(title == newTitle && content == newContent)) {
+      title = newTitle;
+      content = newContent;
+      lastUpdated = DateTime.now();
+    }
+    return this;
   }
 }

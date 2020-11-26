@@ -116,7 +116,7 @@ class _EmailPasswordForm extends StatelessWidget {
                       }, onError: (e) {
                         signUpController.setSignUpSuccessful(false);
                         signUpController.setLoading(false);
-                        Scaffold.of(context).showSnackBar(SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(e),
                         ));
                       }));

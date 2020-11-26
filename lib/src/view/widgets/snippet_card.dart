@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/model/text_snippets.dart';
+import 'package:intertwined/src/view/pages/edit_snippet.dart';
 
 class SnippetCard extends StatelessWidget {
   final TextSnippet snippet;
@@ -16,6 +17,10 @@ class SnippetCard extends StatelessWidget {
           ),
           color: TileColors.fromCode(snippet.colorCode),
           child: ListTile(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => EditSnippet(this.snippet)));
+            },
             title: (snippet.title == '' || snippet.title == null)
                 ? Text(
                     snippet.content,
@@ -38,7 +43,7 @@ class SnippetCard extends StatelessWidget {
                 icon: Icon(Icons.copy),
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: snippet.content));
-                  Scaffold.of(context).showSnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
                         'Content copied to Clipboard',

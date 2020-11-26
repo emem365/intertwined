@@ -74,15 +74,15 @@ class _HomePageState extends State<HomePage> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.text_snippet,),
-              title: Text('Text Snippets'),
+              label: 'Text Snippets',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.image),
-              title: Text('Images'),
+              label: 'Images',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.upload_file),
-              title: Text('Files'),
+              label: 'Files',
             ),
           ],
         ),

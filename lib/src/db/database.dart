@@ -53,7 +53,7 @@ class DatabaseService {
 
   Future<void> updateTextSnippet(User user, TextSnippet snippet) {
     assert(user != null);
-    assert(snippet?.id == null);
+    assert(snippet?.id != null);
 
     String collectionPath = 'users/${user.uid}/textSnippets';
     CollectionReference snippetsCollection =
