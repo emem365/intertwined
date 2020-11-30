@@ -41,3 +41,4 @@ app.*.symbols
 app.*.map.json
 lib/src/constants/auth_providers_secret.dart
 web/web_flavors/local/index.html
+.firebase/

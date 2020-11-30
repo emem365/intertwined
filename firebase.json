@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "intertwined",
+    "public": "./build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
