@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
@@ -23,17 +26,24 @@ class ForgotPassword extends StatelessWidget {
             color: MainColors.richBlackFogra,
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              IllustrationWithTitle(
-                Assets.illustrations.forgotPassword,
-                'Forgot Password?',
+        body: Center(
+          child: SizedBox(
+            width: min(MediaQuery.of(context).size.width, 800),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IllustrationWithTitle(
+                    (kIsWeb)
+                        ? Assets.illustrations.forgotPasswordPng
+                        : Assets.illustrations.forgotPassword,
+                    'Forgot Password?',
+                  ),
+                  _ForgotPasswordForm(),
+                ],
               ),
-              _ForgotPasswordForm(),
-            ],
+            ),
           ),
         ),
       ),
@@ -61,7 +71,9 @@ class _ForgotPasswordForm extends StatelessWidget {
     final forgotPasswordController =
         Provider.of<ForgotPasswordController>(context);
     return Padding(
-      padding: const EdgeInsets.all(32.0),
+      padding: EdgeInsets.symmetric(
+          vertical: 32.0,
+          horizontal: (MediaQuery.of(context).size.width > 800) ? 150 : 32),
       child: Form(
         key: _formKey,
         child: Column(
@@ -89,8 +101,8 @@ class _ForgotPasswordForm extends StatelessWidget {
               style: TextButton.styleFrom(
                   backgroundColor: MainColors.zomp,
                   shape: StadiumBorder(),
-                  minimumSize:
-                      Size(MediaQuery.of(context).size.width / 1.5, 56)),
+                  minimumSize: Size(
+                      min(MediaQuery.of(context).size.width / 1.5, 350), 56)),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   forgotPasswordController.setLoading(true);
@@ -113,7 +125,7 @@ class _ForgotPasswordForm extends StatelessWidget {
                 'Send Recovery Email',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                       fontWeight: FontWeight.w900,
-                      color: Colors.white70,
+                      color: Colors.white,
                     ),
               ),
             )

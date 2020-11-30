@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
@@ -9,7 +11,6 @@ import 'package:intertwined/src/view/pages/auth/sign_up/sign_up.dart';
 import 'package:intertwined/src/view/pages/home_page.dart';
 import 'package:intertwined/src/view/widgets/loading_banner.dart';
 import 'package:intertwined/src/view/widgets/tapable_circle_avatar.dart';
-import 'package:intertwined/src/view/widgets/text_divider.dart';
 import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart' as validators;
 
@@ -32,19 +33,25 @@ class SignIn extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: MainColors.lavendarBlush,
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              _SignInPageTitle(),
-              _SignInAuthProviders(),
-              TextDivider(text: 'OR'),
-              Text('Sign In using your email and password!'),
-              _SignInForm(),
-              _SignUpMessage(),
-              const SizedBox(height: 24)
-            ],
+        body: Center(
+          child: SizedBox(
+            width: min(MediaQuery.of(context).size.width, 800),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _SignInPageTitle(),
+                  // TODO: Find implementation for web
+                  //_SignInAuthProviders(),
+                  //TextDivider(text: 'OR'),
+                  Text('Sign In using your email and password!'),
+                  _SignInForm(),
+                  _SignUpMessage(),
+                  const SizedBox(height: 24)
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -56,8 +63,7 @@ class _SignInPageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height / 6, bottom: 24),
+      padding: EdgeInsets.only(top: 64, bottom: 24),
       child: Text(
         'Sign In',
         style: Theme.of(context).textTheme.headline5.copyWith(
@@ -69,60 +75,62 @@ class _SignInPageTitle extends StatelessWidget {
   }
 }
 
-class _SignInAuthProviders extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context, listen: false);
-    final signInController = Provider.of<SignInController>(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TapableCircleAvatar(
-          child: Image.asset(
-            Assets.logos.google,
-            height: 40,
-            width: 40,
-          ),
-          onTap: () {
-            signInController.setLoading(true);
-            FocusScope.of(context).unfocus();
+// TODO: Uncomment this when you find implementation for Auth providers on Web
 
-            authService.signInWithGoogle().then((_) {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => HomePage()));
-            }, onError: (e) {
-              signInController.setLoading(false);
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(e),
-              ));
-            });
-          },
-        ),
-        TapableCircleAvatar(
-          child: Image.asset(
-            Assets.logos.github,
-            height: 40,
-            width: 40,
-          ),
-          onTap: () {
-            signInController.setLoading(true);
-            FocusScope.of(context).unfocus();
+// class _SignInAuthProviders extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     final authService = Provider.of<AuthService>(context, listen: false);
+//     final signInController = Provider.of<SignInController>(context);
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         TapableCircleAvatar(
+//           child: Image.asset(
+//             Assets.logos.google,
+//             height: 40,
+//             width: 40,
+//           ),
+//           onTap: () {
+//             signInController.setLoading(true);
+//             FocusScope.of(context).unfocus();
 
-            authService.signInWithGitHub(context).then((_) {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => HomePage()));
-            }, onError: (e) {
-              signInController.setLoading(false);
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(e),
-              ));
-            });
-          },
-        ),
-      ],
-    );
-  }
-}
+//             authService.signInWithGoogle().then((_) {
+//               Navigator.of(context).pushReplacement(MaterialPageRoute(
+//                   builder: (BuildContext context) => HomePage()));
+//             }, onError: (e) {
+//               signInController.setLoading(false);
+//               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//                 content: Text(e),
+//               ));
+//             });
+//           },
+//         ),
+//         TapableCircleAvatar(
+//           child: Image.asset(
+//             Assets.logos.github,
+//             height: 40,
+//             width: 40,
+//           ),
+//           onTap: () {
+//             signInController.setLoading(true);
+//             FocusScope.of(context).unfocus();
+
+//             authService.signInWithGitHub(context).then((_) {
+//               Navigator.of(context).pushReplacement(MaterialPageRoute(
+//                   builder: (BuildContext context) => HomePage()));
+//             }, onError: (e) {
+//               signInController.setLoading(false);
+//               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//                 content: Text(e),
+//               ));
+//             });
+//           },
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 class _SignInForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -131,7 +139,9 @@ class _SignInForm extends StatelessWidget {
     final authService = Provider.of<AuthService>(context, listen: false);
     final signInController = Provider.of<SignInController>(context);
     return Padding(
-      padding: const EdgeInsets.all(32.0),
+      padding: EdgeInsets.symmetric(
+          vertical: 32.0,
+          horizontal: (MediaQuery.of(context).size.width > 800) ? 150 : 32),
       child: Form(
         key: _formKey,
         child: Column(
@@ -181,7 +191,8 @@ class _SignInForm extends StatelessWidget {
               style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
                   shape: StadiumBorder(),
-                  minimumSize: Size(MediaQuery.of(context).size.width / 2, 56)),
+                  minimumSize: Size(
+                      min(MediaQuery.of(context).size.width, 800) / 3, 56)),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   signInController.setLoading(true);

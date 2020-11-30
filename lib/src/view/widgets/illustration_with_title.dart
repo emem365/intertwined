@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
@@ -10,16 +13,20 @@ class IllustrationWithTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height / 2,
+      height: max(MediaQuery.of(context).size.height / 2, 200),
       // margin: EdgeInsets.only(top: 36),
       child: Stack(
         children: [
           Center(
-            child: SvgPicture.asset(
-              illustrationPath,
-              semanticsLabel: 'Forgot Password',
-              fit: BoxFit.cover,
-            ),
+            child: (!kIsWeb)
+                ? SvgPicture.asset(
+                    illustrationPath,
+                    fit: BoxFit.cover,
+                  )
+                : Image.asset(
+                    illustrationPath,
+                    fit: BoxFit.cover,
+                  ),
           ),
           Align(
             alignment: Alignment.bottomCenter,

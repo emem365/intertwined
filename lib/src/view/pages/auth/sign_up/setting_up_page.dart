@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/constants/assets.dart';
@@ -22,7 +23,9 @@ class SettingUpPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           IllustrationWithTitle(
-            Assets.illustrations.somethingWrong,
+            (kIsWeb)
+                ? Assets.illustrations.somethingWrongPng
+                : Assets.illustrations.somethingWrong,
             'Something went wrong. Try again!',
           ),
           const SizedBox(height: 24),
@@ -48,11 +51,14 @@ class SettingUpPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IllustrationWithTitle(
-          Assets.illustrations.newUser,
+          (kIsWeb)
+              ? Assets.illustrations.newUserPng
+              : Assets.illustrations.newUser,
           'Setting up. Please wait',
         ),
         const SizedBox(height: 24),
         CircularProgressIndicator(),
+        const SizedBox(height: 24),
       ],
     );
   }
