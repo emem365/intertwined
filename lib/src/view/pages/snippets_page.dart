@@ -16,7 +16,9 @@ class SnippetsPage extends StatelessWidget {
           if (snapshot.hasError) {
             throw UnimplementedError();
           }
-          if (!snapshot.hasData) return CircularProgressIndicator();
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
           return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (context, i) {

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/assets.dart';
 import 'package:intertwined/src/view/widgets/illustration_with_title.dart';
@@ -7,6 +8,10 @@ class FilesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: IllustrationWithTitle(
-            Assets.illustrations.comingSoon2, 'Feature Coming Soon...'));
+          (kIsWeb)
+              ? Assets.illustrations.comingSoon2Png
+              : Assets.illustrations.comingSoon2,
+          'Coming Soon',
+        ),);
   }
 }

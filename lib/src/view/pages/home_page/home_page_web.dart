@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/view/widgets/web_menu.dart';
+import 'package:provider/provider.dart';
 
 import '../files_page.dart';
 import '../snippets_page.dart';
@@ -32,17 +33,30 @@ class _HomePageWebState extends State<HomePageWeb> {
       // appBar: TransparentAppBar(title: getTitle()),
       body: Row(
         children: [
-          WebMenu(),
+          Provider.value(
+            value: _currentIndex,
+            child: WebMenu(),
+          ),
           Expanded(
-            child: PageView(
-              controller: pageController,
-              onPageChanged: (int newIndex) =>
-                  setState(() => _currentIndex = newIndex),
-              physics: BouncingScrollPhysics(),
+            child: Column(
               children: [
-                SnippetsPage(),
-                ImagesPage(),
-                FilesPage(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Pagetitle', style: Theme.of(context).textTheme.headline5,),
+                ),
+                Expanded(
+                  child: PageView(
+                    controller: pageController,
+                    onPageChanged: (int newIndex) =>
+                        setState(() => _currentIndex = newIndex),
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      SnippetsPage(),
+                      ImagesPage(),
+                      FilesPage(),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

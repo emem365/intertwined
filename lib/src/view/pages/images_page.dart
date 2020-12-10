@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/constants/assets.dart';
@@ -10,7 +11,12 @@ class ImagesPage extends StatelessWidget {
         child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        IllustrationWithTitle(Assets.illustrations.comingSoon1, ''),
+        IllustrationWithTitle(
+          (kIsWeb)
+              ? Assets.illustrations.comingSoon1Png
+              : Assets.illustrations.comingSoon1,
+          '',
+        ),
         SizedBox(height: 12),
         Text(
           'Feature Coming Soon...',
