@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/constants/assets.dart';
 import 'package:intertwined/src/controller/sign_up_controller.dart';
-import 'package:intertwined/src/view/pages/home_page.dart';
+import 'package:intertwined/src/view/pages/home_page/home_page.dart';
 import 'package:intertwined/src/view/widgets/illustration_with_title.dart';
 import 'package:provider/provider.dart';
 

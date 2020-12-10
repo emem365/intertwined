@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
+import 'package:intertwined/src/constants/home_page_tabs.dart';
 import 'package:intertwined/src/view/pages/files_page.dart';
 import 'package:intertwined/src/view/pages/images_page.dart';
 import 'package:intertwined/src/view/pages/snippets_page.dart';
@@ -7,12 +8,12 @@ import 'package:intertwined/src/view/widgets/app_drawer.dart';
 import 'package:intertwined/src/view/widgets/custom_nav_bar.dart';
 import 'package:intertwined/src/view/widgets/transparent_app_bar.dart';
 
-class HomePage extends StatefulWidget {
+class HomePageMobile extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageMobileState createState() => _HomePageMobileState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageMobileState extends State<HomePageMobile> {
   int _currentIndex = 0;
   PageController pageController;
   @override
@@ -32,9 +33,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: AppDrawer(),
-      appBar: TransparentAppBar(
-        title: getTitle()
-      ),
+      appBar: TransparentAppBar(title: getTitle()),
       body: PageView(
         controller: pageController,
         onPageChanged: (int newIndex) =>
@@ -55,10 +54,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  String getTitle(){
-    if (_currentIndex == 0) return 'Text Snippets';
-    else if (_currentIndex == 1) return 'Images';
-    else return 'Files';
+  String getTitle() {
+    return homePageTabs[_currentIndex].tabName;
   }
 
   Widget buildNavBar(BuildContext context) => CustomNavBarWrapper(
@@ -71,20 +68,13 @@ class _HomePageState extends State<HomePage> {
           onTap: onPageChanged,
           unselectedItemColor: MainColors.fieryRoseMaterialColor.shade300,
           selectedItemColor: MainColors.lavendarBlush,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.text_snippet,),
-              label: 'Text Snippets',
+          items: List.generate(
+            homePageTabs.length,
+            (index) => BottomNavigationBarItem(
+              icon: Icon(homePageTabs[index].tabIcon),
+              label: homePageTabs[index].tabName,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.image),
-              label: 'Images',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.upload_file),
-              label: 'Files',
-            ),
-          ],
+          ),
         ),
       );
 }

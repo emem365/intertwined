@@ -8,7 +8,7 @@ import 'package:intertwined/src/controller/sign_in_controller.dart';
 import 'package:intertwined/src/db/auth.dart';
 import 'package:intertwined/src/view/pages/auth/forgot_password.dart';
 import 'package:intertwined/src/view/pages/auth/sign_up/sign_up.dart';
-import 'package:intertwined/src/view/pages/home_page.dart';
+import 'package:intertwined/src/view/pages/home_page/home_page.dart';
 import 'package:intertwined/src/view/widgets/loading_banner.dart';
 import 'package:intertwined/src/view/widgets/tapable_circle_avatar.dart';
 import 'package:provider/provider.dart';

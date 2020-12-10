@@ -74,6 +74,7 @@ class _EmailPasswordForm extends StatelessWidget {
                 if (val.length < 8) return "Password too short";
                 return null;
               },
+              obscureText: true,
               onSaved: signUpController.setPassword,
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -88,6 +89,7 @@ class _EmailPasswordForm extends StatelessWidget {
                   return "Password doesnt match";
                 return null;
               },
+              obscureText: true,
               onSaved: signUpController.setRePassword,
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,

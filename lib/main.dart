@@ -11,7 +11,7 @@ import 'package:intertwined/src/view/pages/edit_snippet.dart';
 import 'package:intertwined/src/view/widgets/auth_wrapper.dart';
 import 'package:provider/provider.dart';
 
-import 'src/view/pages/home_page.dart';
+import 'src/view/pages/home_page/home_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
