@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/db/auth.dart';
 import 'package:intertwined/src/db/database.dart';
-import 'package:intertwined/src/model/text_snippets.dart';
 import 'package:intertwined/src/view/pages/auth/sign_in.dart';
-import 'package:intertwined/src/view/pages/edit_snippet.dart';
 import 'package:intertwined/src/view/widgets/auth_wrapper.dart';
 import 'package:provider/provider.dart';
 

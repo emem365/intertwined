@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intertwined/src/constants/app_theme.dart';
 
 class TextSnippet {
   String id;
@@ -10,6 +13,11 @@ class TextSnippet {
   TextSnippet(
       {this.id, this.lastUpdated, this.title, this.content, this.colorCode});
 
+  factory TextSnippet.newSnippet(){
+    var rng = Random();
+    int index = rng.nextInt(TileColors.colorCodes.length);
+    return TextSnippet(colorCode: TileColors.colorCodes[index]);
+  }
   factory TextSnippet.fromDocumentSnapshot(DocumentSnapshot doc) {
     final map = doc.data();
     return TextSnippet.fromMap(map).setId(doc.id);

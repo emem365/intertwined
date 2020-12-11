@@ -4,6 +4,7 @@ import 'package:intertwined/src/constants/home_page_tabs.dart';
 import 'package:intertwined/src/view/pages/files_page.dart';
 import 'package:intertwined/src/view/pages/images_page.dart';
 import 'package:intertwined/src/view/pages/snippets_page.dart';
+import 'package:intertwined/src/view/widgets/add_snippet_button.dart';
 import 'package:intertwined/src/view/widgets/app_drawer.dart';
 import 'package:intertwined/src/view/widgets/custom_nav_bar.dart';
 import 'package:intertwined/src/view/widgets/transparent_app_bar.dart';
@@ -46,11 +47,7 @@ class _HomePageMobileState extends State<HomePageMobile> {
         ],
       ),
       bottomNavigationBar: buildNavBar(context),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: AddSnippetButton(),
     );
   }
 

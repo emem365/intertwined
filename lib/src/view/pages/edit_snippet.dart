@@ -91,7 +91,9 @@ class _EditSnippetState extends State<EditSnippet> {
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
               child: Text(
-                'Last updated: ${Utils.formatDateTime(widget.snippet.lastUpdated)}',
+                widget.snippet.lastUpdated == null
+                    ? 'Newly Created'
+                    : 'Last updated: ${Utils.formatDateTime(widget.snippet.lastUpdated)}',
                 textAlign: TextAlign.end,
               ),
             ),

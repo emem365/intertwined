@@ -30,6 +30,8 @@ class TileColors {
   static String get codeMaximumBluePurple => 'mbp';
   static String get codeCeleste => 'ce';
   static String get codeMaximumYellowRed => 'myr';
+
+  static List<String> colorCodes = ['lp', 'mm', 'mbp', 'ce', 'myr'];
 }
 
 class MainColors {

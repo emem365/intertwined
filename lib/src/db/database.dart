@@ -53,13 +53,17 @@ class DatabaseService {
 
   Future<void> updateTextSnippet(User user, TextSnippet snippet) {
     assert(user != null);
-    assert(snippet?.id != null);
 
     String collectionPath = 'users/${user.uid}/textSnippets';
     CollectionReference snippetsCollection =
         _firestore.collection(collectionPath);
-    DocumentReference doc = snippetsCollection.doc(snippet.id);
-    return doc.update(snippet.toMap());
+
+    if (snippet.id == null) {
+      return snippetsCollection.add(snippet.toMap());
+    } else {
+      DocumentReference doc = snippetsCollection.doc(snippet.id);
+      return doc.update(snippet.toMap());
+    }
   }
 
   Future<void> deleteTextSnippet(User user, TextSnippet snippet) async {

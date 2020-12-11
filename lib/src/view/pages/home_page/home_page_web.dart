@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intertwined/src/view/widgets/add_snippet_button.dart';
 import 'package:intertwined/src/view/widgets/web_menu.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +43,10 @@ class _HomePageWebState extends State<HomePageWeb> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Pagetitle', style: Theme.of(context).textTheme.headline5,),
+                  child: Text(
+                    'Pagetitle',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
                 ),
                 Expanded(
                   child: PageView(
@@ -62,11 +66,7 @@ class _HomePageWebState extends State<HomePageWeb> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: AddSnippetButton(),
     );
   }
 
