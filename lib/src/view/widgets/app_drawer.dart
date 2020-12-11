@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/db/auth.dart';
-import 'package:intertwined/src/view/pages/auth/sign_in.dart';
+import 'package:intertwined/src/view/widgets/app_version.dart';
+import 'package:intertwined/src/view/widgets/drawer_options.dart';
 import 'package:intertwined/src/view/widgets/user_avatar.dart';
 import 'package:provider/provider.dart';
 
@@ -9,43 +10,17 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
+      child: Column(
         children: [
-          _AppDrawerHeader(),
-          ListTile(
-            leading: Icon(Icons.history),
-            title: Text(
-              'History',
+          Expanded(
+            child: ListView(
+              children: [
+                _AppDrawerHeader(),
+                DrawerOptions(),
+              ],
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.info),
-            title: Text(
-              'About',
-            ),
-          ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text(
-              'Settings',
-            ),
-          ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text(
-              'Logout',
-            ),
-            onTap: () {
-              final authService =
-                  Provider.of<AuthService>(context, listen: false);
-              authService.signOut().then((value) {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignIn()),
-                    (route) => false);
-              });
-            },
-          ),
+          AppVersion(),
         ],
       ),
     );
@@ -76,4 +51,3 @@ class _AppDrawerHeader extends StatelessWidget {
     );
   }
 }
-

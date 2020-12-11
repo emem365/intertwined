@@ -9,7 +9,6 @@ class HomePageTabsWeb extends StatelessWidget {
   Widget build(BuildContext context) {
     
     int _currentIndex = Provider.of<int>(context);
-    print(_currentIndex);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: NeumorphicContainer(
