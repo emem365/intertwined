@@ -9,41 +9,42 @@ class DrawerOptions extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        // ListTile(
+        //   leading: Icon(Icons.history),
+        //   title: Text(
+        //     'History',
+        //   ),
+        // ),
         ListTile(
-            leading: Icon(Icons.history),
-            title: Text(
-              'History',
-            ),
+          leading: Icon(Icons.info),
+          title: Text(
+            'About',
           ),
-          ListTile(
-            leading: Icon(Icons.info),
-            title: Text(
-              'About',
-            ),
+        ),
+        // ListTile(
+        //   leading: Icon(Icons.settings),
+        //   title: Text(
+        //     'Settings',
+        //   ),
+        // ),
+        ListTile(
+          leading: Icon(Icons.logout),
+          title: Text(
+            'Logout',
           ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text(
-              'Settings',
-            ),
-          ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text(
-              'Logout',
-            ),
-            onTap: () {
-              final authService =
-                  Provider.of<AuthService>(context, listen: false);
-              authService.signOut().then((value) {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignIn()),
-                    (route) => false);
-              });
-            },
-          ),
+          onTap: () {
+            final authService =
+                Provider.of<AuthService>(context, listen: false);
+            authService.signOut().then((value) {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignIn()),
+                  (route) => false);
+            });
+          },
+        ),
       ],
     );
   }
 }
+//TODO: Add HISTORY and SETTINGS
