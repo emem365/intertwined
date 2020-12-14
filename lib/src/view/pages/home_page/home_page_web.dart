@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intertwined/src/constants/assets.dart';
 import 'package:intertwined/src/view/widgets/add_snippet_button.dart';
 import 'package:intertwined/src/view/widgets/web_menu.dart';
 import 'package:provider/provider.dart';
@@ -42,10 +43,16 @@ class _HomePageWebState extends State<HomePageWeb> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Pagetitle',
-                    style: Theme.of(context).textTheme.headline5,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Image.asset(Assets.logos.appLogo,
+                          height: 100,
+                      ),
+                      Text('Intertwined', style: Theme.of(context).textTheme.headline4  ,),
+                      const SizedBox(width: 16,)
+                    ],
                   ),
                 ),
                 Expanded(
