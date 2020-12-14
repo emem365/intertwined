@@ -10,6 +10,7 @@ class Logos {
 
   String get github => '$path/github.png';
   String get google => '$path/google.png';
+  String get appLogo => '$path/intertwined-nobg.png';
 }
 
 class Illustrations {
