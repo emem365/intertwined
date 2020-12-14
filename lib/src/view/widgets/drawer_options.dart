@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intertwined/src/db/auth.dart';
+import 'package:intertwined/src/view/pages/about.dart';
 import 'package:intertwined/src/view/pages/auth/sign_in.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +19,11 @@ class DrawerOptions extends StatelessWidget {
         ListTile(
           leading: Icon(Icons.info),
           title: Text(
-            'About',
+            'About',  
           ),
+          onTap: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AboutApp()));
+          },
         ),
         // ListTile(
         //   leading: Icon(Icons.settings),
