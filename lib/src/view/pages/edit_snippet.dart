@@ -62,28 +62,21 @@ class _EditSnippetState extends State<EditSnippet> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             actions: [
-              GestureDetector(
-                onTap: () async {
+              TextButton.icon(
+                icon: Icon(
+                  Icons.check,
+                  color: MainColors.richBlackFogra,
+                ),
+                label: Text(
+                  'Next',
+                  style: TextStyle(color: MainColors.richBlackFogra),
+                ),
+                onPressed: () async {
                   await saveData();
                   Navigator.of(context).pop();
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.check,
-                        color: MainColors.richBlackFogra,
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        'Next',
-                        style: TextStyle(color: MainColors.richBlackFogra),
-                      ),
-                    ],
-                  ),
-                ),
-              )
+              ),
+              const SizedBox(width: 8.0,),
             ],
           ),
           body:
