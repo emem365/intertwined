@@ -131,7 +131,7 @@ class _SignInPageTitle extends StatelessWidget {
 // }
 
 class _SignInForm extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
