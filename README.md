@@ -1,7 +1,7 @@
 # <center>Intertwined <img src = "icons/intertwined-nobg.png" width=64> </center>
 <center>Work Faster. Work Better.</center>
 <br>
-
+<span> <img align="right" src="https://github.com/emem365/intertwined/raw/snaps/home.png" width=150> <img align="right" src="https://github.com/emem365/intertwined/raw/snaps/snipps.png" width=150> </span> <br>
 A utility to let you use your text snippets around all your devices. Currently the utility can be accessed from Android and Web. IOS and Windows/Linux should be just around the corner
 
 # Version - Alpha <img src = "https://emem365.github.io/host_repo/cowboybug.png" width=50>
