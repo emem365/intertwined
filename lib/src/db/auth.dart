@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:github_sign_in/github_sign_in.dart';
-import 'package:intertwined/src/constants/auth_providers_secret.dart';
+// import 'package:github_sign_in/github_sign_in.dart';
+// import 'package:intertwined/src/constants/auth_providers_secret.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth;
@@ -72,39 +72,39 @@ class AuthService {
     }
   }
 
-  Future<String> signInWithGitHub(BuildContext context) async {
-    try {
-      final GitHubSignIn gitHubSignIn = GitHubSignIn(
-        clientId: AuthProvidersSecret.gitHubClientId,
-        clientSecret: AuthProvidersSecret.gitHubClientSecret,
-        redirectUrl: AuthProvidersSecret.gitHubRedirectUrl,
-        scope: 'read:user',
-      );
+  // Future<String> signInWithGitHub(BuildContext context) async {
+  //   try {
+  //     final GitHubSignIn gitHubSignIn = GitHubSignIn(
+  //       clientId: AuthProvidersSecret.gitHubClientId,
+  //       clientSecret: AuthProvidersSecret.gitHubClientSecret,
+  //       redirectUrl: AuthProvidersSecret.gitHubRedirectUrl,
+  //       scope: 'read:user',
+  //     );
 
-      final result = await gitHubSignIn.signIn(context);
-      if (result.status == GitHubSignInResultStatus.ok &&
-          result?.token != null) {
-        final AuthCredential gitHubAuthCredential =
-            GithubAuthProvider.credential(result.token);
-        print(gitHubAuthCredential);
-        final UserCredential authResult =
-            await _firebaseAuth.signInWithCredential(gitHubAuthCredential);
+  //     final result = await gitHubSignIn.signIn(context);
+  //     if (result.status == GitHubSignInResultStatus.ok &&
+  //         result?.token != null) {
+  //       final AuthCredential gitHubAuthCredential =
+  //           GithubAuthProvider.credential(result.token);
+  //       print(gitHubAuthCredential);
+  //       final UserCredential authResult =
+  //           await _firebaseAuth.signInWithCredential(gitHubAuthCredential);
 
-        if (authResult?.user != null) {
-          assert(!authResult.user.isAnonymous);
-          return authResult.user.uid;
-        } else {
-          throw Exception('Something went wrong');
-        }
-      } else {
-        return Future.error(result.errorMessage);
-      }
-    } catch (e) {
-      if (e.message == null || e.message == '')
-        return Future.error('Something went wrong. Please try again');
-      return Future.error(e.message);
-    }
-  }
+  //       if (authResult?.user != null) {
+  //         assert(!authResult.user.isAnonymous);
+  //         return authResult.user.uid;
+  //       } else {
+  //         throw Exception('Something went wrong');
+  //       }
+  //     } else {
+  //       return Future.error(result.errorMessage);
+  //     }
+  //   } catch (e) {
+  //     if (e.message == null || e.message == '')
+  //       return Future.error('Something went wrong. Please try again');
+  //     return Future.error(e.message);
+  //   }
+  // }
 
   Future<String> signInWithGoogle() async {
     try {
