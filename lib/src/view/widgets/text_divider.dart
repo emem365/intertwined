@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class TextDivider extends StatelessWidget {
   final EdgeInsets padding;
-  final String text;
+  final String? text;
   TextDivider({
     this.padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 24),
     this.text,
@@ -21,7 +21,7 @@ class TextDivider extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: min(padding.left, padding.right)),
-            child: Text(text),
+            child: Text(text ?? ''),
           ),
           Expanded(
             child: Divider(),
