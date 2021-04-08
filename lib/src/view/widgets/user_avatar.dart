@@ -9,7 +9,7 @@ class UserAvatar extends StatelessWidget {
     this.radius,
   });
 
-  final double radius;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +26,11 @@ class UserAvatar extends StatelessWidget {
     return CircleAvatar(
       radius: 36,
       backgroundColor: MainColors.zomp,
-      child: (currentUser.photoURL == null || currentUser.photoURL == '')
+      child: (currentUser?.photoURL == null || currentUser?.photoURL == '')
           ? _personIcon
           : ClipOval(
               child: CachedNetworkImage(
-                imageUrl: currentUser.photoURL ?? '',
+                imageUrl: currentUser?.photoURL ?? '',
                 progressIndicatorBuilder: (_, __, progress) =>
                     CircularProgressIndicator(value: progress.progress),
                 errorWidget: (_, __, ___) => _personIcon,

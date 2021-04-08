@@ -1,15 +1,14 @@
-
 import 'package:flutter/material.dart';
 
 class CustomNavBarWrapper extends StatelessWidget {
-  final Color color;
+  final Color? color;
   final BorderRadius borderRadius;
   final BottomNavigationBar navBar;
 
   CustomNavBarWrapper({
     this.color,
-    this.borderRadius,
-    this.navBar,
+    required this.borderRadius,
+    required this.navBar,
   });
 
   @override

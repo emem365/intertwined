@@ -16,8 +16,8 @@ class EditSnippet extends StatefulWidget {
 }
 
 class _EditSnippetState extends State<EditSnippet> {
-  TextEditingController _titleController;
-  TextEditingController _bodyController;
+  TextEditingController? _titleController;
+  TextEditingController? _bodyController;
   bool isLoading = false;
 
   @override
@@ -33,7 +33,7 @@ class _EditSnippetState extends State<EditSnippet> {
     });
     final authService = Provider.of<AuthService>(context, listen: false);
     final user = authService.currentUser;
-    widget.snippet.updateSnippet(_titleController.text, _bodyController.text);
+    widget.snippet.updateSnippet(_titleController!.text, _bodyController!.text);
     final databaseService =
         Provider.of<DatabaseService>(context, listen: false);
     await databaseService.updateTextSnippet(user, widget.snippet);
@@ -76,7 +76,9 @@ class _EditSnippetState extends State<EditSnippet> {
                   Navigator.of(context).pop();
                 },
               ),
-              const SizedBox(width: 8.0,),
+              const SizedBox(
+                width: 8.0,
+              ),
             ],
           ),
           body:
@@ -86,7 +88,7 @@ class _EditSnippetState extends State<EditSnippet> {
               child: Text(
                 widget.snippet.lastUpdated == null
                     ? 'Newly Created'
-                    : 'Last updated: ${Utils.formatDateTime(widget.snippet.lastUpdated)}',
+                    : 'Last updated: ${Utils.formatDateTime(widget.snippet.lastUpdated ?? DateTime.now())}',
                 textAlign: TextAlign.end,
               ),
             ),
@@ -113,8 +115,8 @@ class _EditSnippetState extends State<EditSnippet> {
 
   @override
   void dispose() {
-    _titleController.dispose();
-    _bodyController.dispose();
+    _titleController?.dispose();
+    _bodyController?.dispose();
     super.dispose();
   }
 }
@@ -122,7 +124,7 @@ class _EditSnippetState extends State<EditSnippet> {
 class LoadingOverlay extends StatelessWidget {
   final bool isLoading;
   final Widget child;
-  LoadingOverlay({this.isLoading, this.child});
+  LoadingOverlay({required this.isLoading, required this.child});
 
   @override
   Widget build(BuildContext context) {

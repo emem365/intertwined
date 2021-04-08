@@ -50,9 +50,9 @@ class _DisplayNameForm extends StatelessWidget {
           children: [
             TextFormField(
               textInputAction: TextInputAction.next,
-              onSaved: signUpController.setDisplayName,
+              onSaved: (val) => signUpController.setDisplayName(val ?? ''),
               validator: (val) {
-                if (val.isEmpty) {
+                if (val == null || val.isEmpty) {
                   return 'Cannot be empty';
                 } else if (!validators.isAlphanumeric(val)) {
                   return 'Invalid Display Name.';
@@ -72,12 +72,12 @@ class _DisplayNameForm extends StatelessWidget {
               style: TextButton.styleFrom(
                   backgroundColor: MainColors.zomp,
                   shape: StadiumBorder(),
-                  minimumSize:
-                      Size(min(MediaQuery.of(context).size.width / 1.5, 250), 56)),
+                  minimumSize: Size(
+                      min(MediaQuery.of(context).size.width / 1.5, 250), 56)),
               onPressed: () {
-                if (_formKey.currentState.validate()) {
+                if (_formKey.currentState!.validate()) {
                   FocusScope.of(context).unfocus();
-                  _formKey.currentState.save();
+                  _formKey.currentState!.save();
                   signUpController.pageController.nextPage(
                     duration: Duration(milliseconds: 400),
                     curve: Curves.easeIn,
@@ -86,7 +86,7 @@ class _DisplayNameForm extends StatelessWidget {
               },
               child: Text(
                 'Next',
-                style: Theme.of(context).textTheme.headline6.copyWith(
+                style: Theme.of(context).textTheme.headline6?.copyWith(
                       fontWeight: FontWeight.w900,
                       color: Colors.white,
                     ),

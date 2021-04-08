@@ -22,7 +22,7 @@ class EmailPasswordPage extends StatelessWidget {
                     top: MediaQuery.of(context).size.height / 6, bottom: 24),
                 child: Text(
                   'Set Email and Password',
-                  style: Theme.of(context).textTheme.headline5.copyWith(
+                  style: Theme.of(context).textTheme.headline5?.copyWith(
                         fontWeight: FontWeight.w900,
                         color: MainColors.richBlackFogra,
                       ),
@@ -54,9 +54,9 @@ class _EmailPasswordForm extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
-              onSaved: signUpController.setEmail,
+              onSaved: (val) => signUpController.setEmail(val ?? ''),
               validator: (val) {
-                if (!validators.isEmail(val)) {
+                if (!validators.isEmail(val ?? '')) {
                   return 'Invalid email.';
                 }
                 return null;
@@ -71,11 +71,12 @@ class _EmailPasswordForm extends StatelessWidget {
             TextFormField(
               controller: passwordController,
               validator: (val) {
+                if (val == null) return "Enter Password";
                 if (val.length < 8) return "Password too short";
                 return null;
               },
               obscureText: true,
-              onSaved: signUpController.setPassword,
+              onSaved: (val) => signUpController.setPassword(val ?? ''),
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 fillColor: Colors.white,
@@ -90,7 +91,7 @@ class _EmailPasswordForm extends StatelessWidget {
                 return null;
               },
               obscureText: true,
-              onSaved: signUpController.setRePassword,
+              onSaved: (val) => signUpController.setRePassword(val ?? ''),
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 fillColor: Colors.white,
@@ -104,12 +105,12 @@ class _EmailPasswordForm extends StatelessWidget {
               style: TextButton.styleFrom(
                   backgroundColor: MainColors.zomp,
                   shape: StadiumBorder(),
-                  minimumSize:
-                      Size(min(MediaQuery.of(context).size.width / 1.5, 250), 56)),
+                  minimumSize: Size(
+                      min(MediaQuery.of(context).size.width / 1.5, 250), 56)),
               onPressed: () {
-                if (_formKey.currentState.validate()) {
+                if (_formKey.currentState!.validate()) {
                   FocusScope.of(context).unfocus();
-                  _formKey.currentState.save();
+                  _formKey.currentState!.save();
                   signUpController.setLoading(true);
                   signUpController.pageController.nextPage(
                     duration: Duration(milliseconds: 400),
@@ -135,7 +136,7 @@ class _EmailPasswordForm extends StatelessWidget {
               },
               child: Text(
                 'SignUp',
-                style: Theme.of(context).textTheme.headline6.copyWith(
+                style: Theme.of(context).textTheme.headline6?.copyWith(
                       fontWeight: FontWeight.w900,
                       color: Colors.white70,
                     ),

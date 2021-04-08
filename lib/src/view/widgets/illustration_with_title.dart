@@ -35,7 +35,7 @@ class IllustrationWithTitle extends StatelessWidget {
               child: Text(
                 title,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline5.copyWith(
+                style: Theme.of(context).textTheme.headline5?.copyWith(
                       fontWeight: FontWeight.w900,
                       color: MainColors.richBlackFogra,
                     ),

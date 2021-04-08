@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TapableCircleAvatar extends StatelessWidget {
-  final Widget child;
-  final void Function() onTap;
+  final Widget? child;
+  final void Function()? onTap;
   final Color backgroundColor;
   final double radius;
 

@@ -20,7 +20,7 @@ class ImagesPage extends StatelessWidget {
         SizedBox(height: 12),
         Text(
           'Feature Coming Soon...',
-          style: Theme.of(context).textTheme.headline5.copyWith(
+          style: Theme.of(context).textTheme.headline5?.copyWith(
                 fontWeight: FontWeight.w900,
                 color: MainColors.richBlackFogra,
               ),

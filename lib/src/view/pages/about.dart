@@ -33,7 +33,7 @@ class AboutApp extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headline4
-                      .copyWith(color: Colors.white70),
+                      ?.copyWith(color: Colors.white70),
                 ),
                 SizedBox(
                   height: 25,
@@ -51,7 +51,10 @@ class AboutApp extends StatelessWidget {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Align(alignment: Alignment.topLeft, child:BackButton(color: Colors.white70),),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: BackButton(color: Colors.white70),
+              ),
             ),
           )
         ],
@@ -67,7 +70,7 @@ class AboutApp extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodyText1
-              .copyWith(color: Colors.white70),
+              ?.copyWith(color: Colors.white70),
         ),
       );
   Widget _buildUrlRow(BuildContext context, AboutLink link) => Padding(
@@ -79,16 +82,16 @@ class AboutApp extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  .copyWith(color: Colors.white70),
+                  ?.copyWith(color: Colors.white70),
             ),
             Spacer(),
-            FlatButton(
+            TextButton(
               child: Text(
                 link.text,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1
-                    .copyWith(color: Colors.white70),
+                    ?.copyWith(color: Colors.white70),
               ),
               onPressed: () => _launchURL(link.url),
             ),

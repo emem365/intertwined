@@ -39,7 +39,7 @@ class SettingUpPage extends StatelessWidget {
             },
             child: Text(
               'Go Back',
-              style: Theme.of(context).textTheme.headline6.copyWith(
+              style: Theme.of(context).textTheme.headline6?.copyWith(
                     fontWeight: FontWeight.w900,
                     color: Colors.white70,
                   ),

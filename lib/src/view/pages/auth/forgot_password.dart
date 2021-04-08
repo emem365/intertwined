@@ -47,13 +47,13 @@ class ForgotPassword extends StatelessWidget {
           ),
         ),
       ),
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return Consumer<ForgotPasswordController>(builder:
             (BuildContext context,
                 ForgotPasswordController forgotPasswordController, _) {
           return Stack(
             children: [
-              child,
+              if (child != null) child,
               if (forgotPasswordController.isLoading) LoadingBanner(),
             ],
           );
@@ -81,9 +81,9 @@ class _ForgotPasswordForm extends StatelessWidget {
           children: [
             TextFormField(
               textInputAction: TextInputAction.go,
-              onSaved: forgotPasswordController.setEmail,
+              onSaved: (val) => forgotPasswordController.setEmail(val ?? ''),
               validator: (val) {
-                if (!validators.isEmail(val)) {
+                if (!validators.isEmail(val ?? '')) {
                   return 'Invalid email.';
                 }
                 return null;
@@ -104,10 +104,10 @@ class _ForgotPasswordForm extends StatelessWidget {
                   minimumSize: Size(
                       min(MediaQuery.of(context).size.width / 1.5, 350), 56)),
               onPressed: () {
-                if (_formKey.currentState.validate()) {
+                if (_formKey.currentState!.validate()) {
                   forgotPasswordController.setLoading(true);
                   FocusScope.of(context).unfocus();
-                  _formKey.currentState.save();
+                  _formKey.currentState!.save();
 
                   authService
                       .resetPassword(forgotPasswordController.email)
@@ -123,7 +123,7 @@ class _ForgotPasswordForm extends StatelessWidget {
               },
               child: Text(
                 'Send Recovery Email',
-                style: Theme.of(context).textTheme.headline6.copyWith(
+                style: Theme.of(context).textTheme.headline6?.copyWith(
                       fontWeight: FontWeight.w900,
                       color: Colors.white,
                     ),

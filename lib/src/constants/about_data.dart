@@ -1,4 +1,3 @@
-
 class AboutData {
   static String appName = 'Intertwined';
   static List<String> content = [
@@ -16,15 +15,14 @@ class AboutData {
       text: 'emem365/intertwined',
       url: 'https://github.com/emem365/intertwined',
     ),
-    
   ];
 }
 
 class AboutLink {
   AboutLink({
-    this.category,
-    this.text,
-    this.url,
+    required this.category,
+    required this.text,
+    required this.url,
   });
   final String category;
   final String text;

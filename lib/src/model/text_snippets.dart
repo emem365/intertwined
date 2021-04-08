@@ -4,22 +4,27 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intertwined/src/constants/app_theme.dart';
 
 class TextSnippet {
-  String id;
-  DateTime lastUpdated;
-  String title;
-  String content;
+  String? id;
+  DateTime? lastUpdated;
+  String? title;
+  String? content;
   String colorCode;
 
   TextSnippet(
-      {this.id, this.lastUpdated, this.title, this.content, this.colorCode});
+      {this.id,
+      this.lastUpdated,
+      this.title,
+      this.content,
+      required this.colorCode});
 
-  factory TextSnippet.newSnippet(){
+  factory TextSnippet.newSnippet() {
     var rng = Random();
     int index = rng.nextInt(TileColors.colorCodes.length);
     return TextSnippet(colorCode: TileColors.colorCodes[index]);
   }
   factory TextSnippet.fromDocumentSnapshot(DocumentSnapshot doc) {
     final map = doc.data();
+    if (map == null) return TextSnippet.newSnippet();
     return TextSnippet.fromMap(map).setId(doc.id);
   }
   factory TextSnippet.fromMap(Map<String, dynamic> map) {
@@ -36,11 +41,11 @@ class TextSnippet {
     return this;
   }
 
-  Map toMap() {
+  Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
       'title': title ?? '',
       'content': content,
-      'last-updated': Timestamp.fromDate(lastUpdated),
+      'last-updated': Timestamp.fromDate(lastUpdated ?? DateTime.now()),
       'color-code': colorCode,
     };
     return map;

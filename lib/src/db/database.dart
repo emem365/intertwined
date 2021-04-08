@@ -7,15 +7,11 @@ class DatabaseService {
   DatabaseService(this._firestore);
 
   Future<String> createTextSnippet(User user, TextSnippet snippet) async {
-    assert(user != null);
     try {
       String collectionPath = 'users/${user.uid}/textSnippets';
       CollectionReference snippetsCollection =
           _firestore.collection(collectionPath);
       final reference = await snippetsCollection.add(snippet.toMap());
-      if (reference?.id == null) {
-        throw Exception('Something went wrong');
-      }
       return reference.id;
     } catch (e) {
       return Future.error(e);
@@ -23,21 +19,21 @@ class DatabaseService {
   }
 
   Future<List<TextSnippet>> readTextSnippets(User user) async {
-    assert(user != null);
     try {
       String collectionPath = 'users/${user.uid}/textSnippets';
       CollectionReference snippetsCollection =
           _firestore.collection(collectionPath);
       QuerySnapshot result = await snippetsCollection.get();
-      return result.docs.map((doc) => TextSnippet.fromDocumentSnapshot(doc));
+      return result.docs
+          .map((doc) => TextSnippet.fromDocumentSnapshot(doc))
+          .toList();
     } catch (e) {
       return Future.error(e);
     }
   }
 
-  Stream<List<TextSnippet>> watchTextSnippets(User user) {
-    assert(user != null);
-
+  Stream<List<TextSnippet>> watchTextSnippets(User? user) {
+    if (user == null) return Stream.empty();
     String collectionPath = 'users/${user.uid}/textSnippets';
     CollectionReference snippetsCollection =
         _firestore.collection(collectionPath);
@@ -51,18 +47,19 @@ class DatabaseService {
         );
   }
 
-  Future<void> updateTextSnippet(User user, TextSnippet snippet) {
-    assert(user != null);
-
+  Future<void> updateTextSnippet(User? user, TextSnippet snippet) async {
+    if (user == null) return;
     String collectionPath = 'users/${user.uid}/textSnippets';
     CollectionReference snippetsCollection =
         _firestore.collection(collectionPath);
 
     if (snippet.id == null) {
-      return snippetsCollection.add(snippet.toMap());
+      await snippetsCollection.add(snippet.toMap());
+      return;
     } else {
       DocumentReference doc = snippetsCollection.doc(snippet.id);
-      return doc.update(snippet.toMap());
+      await doc.update(snippet.toMap());
+      return;
     }
   }
 

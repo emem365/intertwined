@@ -17,12 +17,12 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => SignInController(),
-      builder: (BuildContext context, Widget signInScreen) {
+      builder: (BuildContext context, Widget? signInScreen) {
         return Consumer<SignInController>(
           builder: (BuildContext context, signInController, _) {
             return Stack(
               children: [
-                signInScreen,
+                if (signInScreen != null) signInScreen,
                 if (signInController.isLoading) LoadingBanner(),
               ],
             );
@@ -64,7 +64,7 @@ class _SignInPageTitle extends StatelessWidget {
       padding: EdgeInsets.only(top: 64, bottom: 24),
       child: Text(
         'Sign In',
-        style: Theme.of(context).textTheme.headline5.copyWith(
+        style: Theme.of(context).textTheme.headline5?.copyWith(
               fontWeight: FontWeight.w900,
               color: MainColors.richBlackFogra,
             ),
@@ -146,9 +146,9 @@ class _SignInForm extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
-              onSaved: signInController.setEmail,
+              onSaved: (val) => signInController.setEmail(val ?? ''),
               validator: (val) {
-                if (!validators.isEmail(val)) {
+                if (!validators.isEmail(val ?? '')) {
                   return 'Invalid email.';
                 }
                 return null;
@@ -164,7 +164,7 @@ class _SignInForm extends StatelessWidget {
               validator: (val) {
                 return null;
               },
-              onSaved: signInController.setPassword,
+              onSaved: (val) => signInController.setPassword(val ?? ''),
               obscureText: true,
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -192,10 +192,10 @@ class _SignInForm extends StatelessWidget {
                   minimumSize: Size(
                       min(MediaQuery.of(context).size.width, 800) / 3, 56)),
               onPressed: () {
-                if (_formKey.currentState.validate()) {
+                if (_formKey.currentState!.validate()) {
                   signInController.setLoading(true);
                   FocusScope.of(context).unfocus();
-                  _formKey.currentState.save();
+                  _formKey.currentState!.save();
 
                   authService
                       .signIn(signInController.email, signInController.password)
@@ -212,7 +212,7 @@ class _SignInForm extends StatelessWidget {
               },
               child: Text(
                 'Sign in',
-                style: Theme.of(context).textTheme.headline6.copyWith(
+                style: Theme.of(context).textTheme.headline6?.copyWith(
                       fontWeight: FontWeight.w900,
                       color: MainColors.richBlackFogra,
                     ),

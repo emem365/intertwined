@@ -15,7 +15,7 @@ class HomePageWeb extends StatefulWidget {
 
 class _HomePageWebState extends State<HomePageWeb> {
   int _currentIndex = 0;
-  PageController pageController;
+  PageController? pageController;
   @override
   void initState() {
     pageController = new PageController(
@@ -25,7 +25,7 @@ class _HomePageWebState extends State<HomePageWeb> {
   }
 
   void onPageChanged(int newIndex) {
-    pageController.animateToPage(newIndex,
+    pageController?.animateToPage(newIndex,
         duration: Duration(milliseconds: 400), curve: Curves.easeInOut);
   }
 
@@ -47,11 +47,17 @@ class _HomePageWebState extends State<HomePageWeb> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Image.asset(Assets.logos.appLogo,
-                          height: 100,
+                      Image.asset(
+                        Assets.logos.appLogo,
+                        height: 100,
                       ),
-                      Text('Intertwined', style: Theme.of(context).textTheme.headline4  ,),
-                      const SizedBox(width: 16,)
+                      Text(
+                        'Intertwined',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      )
                     ],
                   ),
                 ),

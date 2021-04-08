@@ -20,9 +20,9 @@ class SnippetsPage extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
           return ListView.builder(
-              itemCount: snapshot.data.length,
+              itemCount: snapshot.data?.length,
               itemBuilder: (context, i) {
-                return SnippetCard(snapshot.data[i]);
+                return SnippetCard(snapshot.data![i]);
               });
         });
   }

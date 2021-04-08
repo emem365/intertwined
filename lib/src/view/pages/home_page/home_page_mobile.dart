@@ -16,7 +16,7 @@ class HomePageMobile extends StatefulWidget {
 
 class _HomePageMobileState extends State<HomePageMobile> {
   int _currentIndex = 0;
-  PageController pageController;
+  PageController? pageController;
   @override
   void initState() {
     pageController = new PageController(
@@ -26,7 +26,7 @@ class _HomePageMobileState extends State<HomePageMobile> {
   }
 
   void onPageChanged(int newIndex) {
-    pageController.animateToPage(newIndex,
+    pageController?.animateToPage(newIndex,
         duration: Duration(milliseconds: 400), curve: Curves.easeInOut);
   }
 

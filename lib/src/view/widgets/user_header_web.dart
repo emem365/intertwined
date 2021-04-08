@@ -17,7 +17,7 @@ class UserHeaderWeb extends StatelessWidget {
           UserAvatar(radius: 36),
           SizedBox(height: 24),
           Text(
-            currentUser.displayName ?? 'User',
+            currentUser?.displayName ?? 'User',
             style: Theme.of(context).textTheme.headline5,
             textAlign: TextAlign.center,
           ),
@@ -26,4 +26,3 @@ class UserHeaderWeb extends StatelessWidget {
     );
   }
 }
-

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class NeumorphicContainer extends StatelessWidget {
-  final double width;
-  final double height;
-  final Color backgroundColor;
-  final Color color;
+  final double? width;
+  final double? height;
+  final Color? backgroundColor;
+  final Color? color;
   final double bevel;
   final Offset blurOffset;
   final Widget child;
 
   NeumorphicContainer({
-    Key key,
+    Key? key,
     this.width,
     this.height,
-    this.child,
+    required this.child,
     this.bevel = 48.0,
     this.color,
     this.backgroundColor,
@@ -35,22 +35,24 @@ class NeumorphicContainer extends StatelessWidget {
           BoxShadow(
             blurRadius: bevel,
             offset: -blurOffset,
-            color: Color.lerp(backgroundColor, Colors.white, 0.6),
+            color: Color.lerp(backgroundColor, Colors.white, 0.6) ??
+                backgroundColor,
           ),
           BoxShadow(
             blurRadius: bevel,
             offset: blurOffset,
-            color: Color.lerp(backgroundColor, Colors.black, 0.3),
+            color: Color.lerp(backgroundColor, Colors.black, 0.3) ??
+                backgroundColor,
           )
         ],
         gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color.lerp(color, Colors.white, 0.2),
+              Color.lerp(color, Colors.white, 0.2) ?? color,
               color,
               color,
-              Color.lerp(color, Colors.black, 0.1),
+              Color.lerp(color, Colors.black, 0.1) ?? color,
             ],
             stops: [
               0,

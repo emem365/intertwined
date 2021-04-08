@@ -4,7 +4,7 @@ class PageTab {
   final String tabName;
   final IconData tabIcon;
   const PageTab({
-    @required this.tabName,
-    @required this.tabIcon,
+    required this.tabName,
+    required this.tabIcon,
   });
 }

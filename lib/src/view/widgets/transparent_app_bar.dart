@@ -3,7 +3,7 @@ import 'package:intertwined/src/constants/app_theme.dart';
 import 'package:intertwined/src/view/widgets/user_avatar.dart';
 
 class TransparentAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final String? title;
   TransparentAppBar({this.title});
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,9 @@ class TransparentAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
-      title: Text(title, style: TextStyle(color: MainColors.richBlackFogra)),
+      title: (title != null)
+          ? Text(title!, style: TextStyle(color: MainColors.richBlackFogra))
+          : null,
       leading: Builder(
         builder: (BuildContext context) => Padding(
           padding: EdgeInsets.only(left: 8),

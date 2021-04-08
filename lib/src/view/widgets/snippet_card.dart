@@ -23,15 +23,15 @@ class SnippetCard extends StatelessWidget {
             },
             title: (snippet.title == '' || snippet.title == null)
                 ? Text(
-                    snippet.content,
+                    snippet.content ?? 'No Content',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   )
-                : Text(snippet.title),
+                : Text(snippet.title!),
             subtitle: (snippet.title == '' || snippet.title == null)
                 ? null
                 : Text(
-                    snippet.content,
+                    snippet.content ?? 'No Content',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
